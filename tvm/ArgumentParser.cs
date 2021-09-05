@@ -24,7 +24,7 @@ namespace tvm
         /// Parse command line arguments
         /// </summary>
         /// <returns>Parsed arguments</returns>
-        public static Dictionary<string, ArgumentType> ParseArgs()
+        public static Dictionary<ArgumentType, string> ParseArgs(string args)
         {
             throw new NotImplementedException();
         }
