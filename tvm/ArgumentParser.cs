@@ -18,14 +18,14 @@ namespace tvm
     /// <summary>
     /// Command line arguments parser
     /// </summary>    
-    public static class ArgumentParser
+    public static class ArgumentParser<T> where T : ArgumentValue
     {
      
         /// <summary>
         /// Parse command line arguments
         /// </summary>
         /// <returns>Parsed arguments</returns>
-        public static Dictionary<ArgumentType, string> ParseArgs(string args)
+        public static Dictionary<ArgumentType, ArgumentValue> ParseArgs(string args)
         {
             throw new NotImplementedException();
         }
