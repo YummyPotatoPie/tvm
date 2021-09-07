@@ -31,6 +31,7 @@ namespace tvm
         /// Get virtual machine configuration by command line arguments
         /// </summary>
         /// <param name="parsedArgs">Parsed command line arguments</param>
+        /// <exception cref="InvalidCommandLineArgumentsException"></exception>
         /// <returns>Virtual machine configuration</returns>
         private static TvmConfiguration GetConfiguration(Dictionary<ArgumentType, ArgumentValue> parsedArgs)
         {
@@ -41,15 +42,12 @@ namespace tvm
                 if (arg.Key == ArgumentType.Filename) configurator = configurator.AddSourceFilePath(arg.Value.Argument);
                 else if (arg.Key == ArgumentType.Special)
                 {
-                    switch (arg.Value.Argument)
+                    configurator = arg.Value.Argument switch
                     {
-                        case "i":
-                            configurator = configurator.InterpretingMode();
-                            break;
-                        case "c":
-                            configurator = configurator.CompilationMode();
-                            break;
-                    }
+                        "i" => configurator.InterpretingMode(),
+                        "c" => configurator.CompilationMode(),
+                         _  => throw new InvalidCommandLineArgumentsException("Unknown commad line argument: -" + arg.Value.Argument)
+                    };
                 }
                 //else statement for ArgumentType.NameSpecial
             }
@@ -62,6 +60,7 @@ namespace tvm
         /// <summary>
         /// Checks the consistency and correctness of arguments
         /// </summary>
+        /// <exception cref="InvalidCommandLineArgumentsException"></exception>
         /// <param name="configuration">Virtual machine configuration</param>
         private static void CheckConfigurationCorrectness(TvmConfiguration configuration)
         {
