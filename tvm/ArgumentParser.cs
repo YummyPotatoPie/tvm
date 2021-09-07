@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using tvm.Exceptions;
+
 namespace tvm
 {
     /// <summary>
@@ -20,10 +22,11 @@ namespace tvm
     /// </summary>    
     public static class ArgumentParser<T> where T : ArgumentValue
     {
-     
+
         /// <summary>
         /// Parse command line arguments
         /// </summary>
+        /// <exception cref="CommandLineArgumentsParseException"></exception>
         /// <returns>Parsed arguments</returns>
         public static Dictionary<ArgumentType, ArgumentValue> ParseArgs(string args)
         {
