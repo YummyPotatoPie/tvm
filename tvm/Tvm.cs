@@ -31,11 +31,11 @@ namespace tvm
         /// Get virtual machine configuration by command line arguments
         /// </summary>
         /// <param name="parsedArgs">Parsed command line arguments</param>
-        /// <exception cref="InvalidCommandLineArgumentsException"></exception>
         /// <returns>Virtual machine configuration</returns>
         private static TvmConfiguration GetConfiguration(Dictionary<ArgumentType, ArgumentValue> parsedArgs)
         {
-            Configurator configurator = new(); 
+            Configurator configurator1 = new();
+            Configurator configurator = configurator1; 
 
             foreach (KeyValuePair<ArgumentType, ArgumentValue> arg in parsedArgs)
             {
@@ -60,7 +60,6 @@ namespace tvm
         /// <summary>
         /// Checks the consistency and correctness of arguments
         /// </summary>
-        /// <exception cref="InvalidCommandLineArgumentsException"></exception>
         /// <param name="configuration">Virtual machine configuration</param>
         private static void CheckConfigurationCorrectness(TvmConfiguration configuration)
         {
