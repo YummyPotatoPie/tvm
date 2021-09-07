@@ -15,7 +15,7 @@ namespace tvm
         {
             try
             {
-                var parsedArgs = ArgumentParser<ArgumentValue>.ParseArgs(string.Join("", args));
+                var parsedArgs = ArgumentParser<ArgumentValue>.ParseArgs(string.Join(" ", args));
                 var configuration = GetConfiguration(parsedArgs);
 
                 //if (configuration.Interpretation) Interpreter.Interpret(configuration);
