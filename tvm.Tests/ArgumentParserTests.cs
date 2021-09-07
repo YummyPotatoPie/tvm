@@ -15,16 +15,16 @@ namespace tvm.Tests
             string args = "Filename1.tbc -C -D -asdas -sample";
 
             // Act
-            Dictionary<ArgumentType, string> parsedArgs = ArgumentParser.ParseArgs(args);
+            Dictionary<ArgumentType, ArgumentValue> parsedArgs = ArgumentParser<ArgumentValue>.ParseArgs(args);
 
             // Assert
-            Assert.Equal(new Dictionary<ArgumentType, string>
+            Assert.Equal(new Dictionary<ArgumentType, ArgumentValue>
             {
-                { ArgumentType.Filename, "Filename1.tbc" },
-                { ArgumentType.Special, "C" },
-                { ArgumentType.Special, "D" },
-                { ArgumentType.Special, "asdas" },
-                { ArgumentType.Special, "sample" }
+                { ArgumentType.Filename, new ArgumentValue("Filename1.tbc") },
+                { ArgumentType.Special, new ArgumentValue("C") },
+                { ArgumentType.Special, new ArgumentValue("D") },
+                { ArgumentType.Special, new ArgumentValue("asdas") },
+                { ArgumentType.Special, new ArgumentValue("sample") }
             }, 
             parsedArgs);
         }
@@ -36,17 +36,17 @@ namespace tvm.Tests
             string args = "HelloWorld.tbc File2.tbc-C-G-OP1-OP3";
 
             // Act
-            Dictionary<ArgumentType, string> parsedArgs = ArgumentParser.ParseArgs(args);
+            Dictionary<ArgumentType, ArgumentValue> parsedArgs = ArgumentParser<ArgumentValue>.ParseArgs(args);
 
             // Assert
-            Assert.Equal(new Dictionary<ArgumentType, string>
+            Assert.Equal(new Dictionary<ArgumentType, ArgumentValue>
             {
-                { ArgumentType.Filename, "HelloWorld.tbc" },
-                { ArgumentType.Filename, "File2.tbc" },
-                { ArgumentType.Special, "C" },
-                { ArgumentType.Special, "G" },
-                { ArgumentType.Special, "OP1" },
-                { ArgumentType.Special, "OP3" }
+                { ArgumentType.Filename, new ArgumentValue("HelloWorld.tbc") },
+                { ArgumentType.Filename, new ArgumentValue("File2.tbc") },
+                { ArgumentType.Special, new ArgumentValue("C") },
+                { ArgumentType.Special, new ArgumentValue("G") },
+                { ArgumentType.Special, new ArgumentValue("OP1") },
+                { ArgumentType.Special, new ArgumentValue("OP3") }
             },
             parsedArgs);
         }
@@ -54,7 +54,7 @@ namespace tvm.Tests
         [Fact]
         public void InvalidExtentionOfFileTest() => Assert.Throws<CommandLineArgumentsParseException>(new Action(ParseInvalidArgs));
 
-        private void ParseInvalidArgs() => ArgumentParser.ParseArgs("Hello.wrong File.no");
+        private void ParseInvalidArgs() => ArgumentParser<ArgumentValue>.ParseArgs("Hello.wrong File.no");
 
     }
 }
