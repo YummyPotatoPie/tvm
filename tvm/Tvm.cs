@@ -15,7 +15,7 @@ namespace tvm
         {
             try
             {
-                var parsedArgs = ArgumentParser.ParseArgs(string.Join("", args));
+                var parsedArgs = ArgumentParser<ArgumentValue>.ParseArgs(string.Join("", args));
                 var configuration = GetConfiguration(parsedArgs);
 
                 //if (configuration.Interpretation) Interpreter.Interpret(configuration);
@@ -32,16 +32,16 @@ namespace tvm
         /// </summary>
         /// <param name="parsedArgs">Parsed command line arguments</param>
         /// <returns>Virtual machine configuration</returns>
-        private static TvmConfiguration GetConfiguration(Dictionary<ArgumentType, string> parsedArgs)
+        private static TvmConfiguration GetConfiguration(Dictionary<ArgumentType, ArgumentValue> parsedArgs)
         {
             Configurator configurator = new(); 
 
-            foreach (KeyValuePair<ArgumentType, string> arg in parsedArgs)
+            foreach (KeyValuePair<ArgumentType, ArgumentValue> arg in parsedArgs)
             {
-                if (arg.Key == ArgumentType.Filename) configurator = configurator.AddSourceFilePath(arg.Value);
-                else
+                if (arg.Key == ArgumentType.Filename) configurator = configurator.AddSourceFilePath(arg.Value.Argument);
+                else if (arg.Key == ArgumentType.Special)
                 {
-                    switch (arg.Value)
+                    switch (arg.Value.Argument)
                     {
                         case "i":
                             configurator = configurator.InterpretingMode();
@@ -51,6 +51,7 @@ namespace tvm
                             break;
                     }
                 }
+                //else statement for ArgumentType.NameSpecial
             }
 
             TvmConfiguration configuration = configurator.Build();
