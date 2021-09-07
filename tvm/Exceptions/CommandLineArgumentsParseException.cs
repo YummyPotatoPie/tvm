@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace tvm
+namespace tvm.Exceptions
 {
     public class CommandLineArgumentsParseException : Exception
     {

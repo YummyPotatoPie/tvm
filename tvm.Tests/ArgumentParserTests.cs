@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
+using tvm.Exceptions;
+
 namespace tvm.Tests
 {
     public class ArgumentParserTests
@@ -50,7 +52,7 @@ namespace tvm.Tests
         }
 
         [Fact]
-        public void InvalidExtentionOfFileTest() => Assert.Throws(typeof (CommandLineArgumentsParseException), new Action(ParseInvalidArgs));
+        public void InvalidExtentionOfFileTest() => Assert.Throws<CommandLineArgumentsParseException>(new Action(ParseInvalidArgs));
 
         private void ParseInvalidArgs() => ArgumentParser.ParseArgs("Hello.wrong File.no");
 

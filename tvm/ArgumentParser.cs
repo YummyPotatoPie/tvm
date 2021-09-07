@@ -9,7 +9,8 @@ namespace tvm
     public enum ArgumentType
     {
         Filename,
-        Special
+        Special,
+        NameSpecial
     }
 
     // Parsing arguments like:

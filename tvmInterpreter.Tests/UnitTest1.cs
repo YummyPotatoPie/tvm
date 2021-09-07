@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace tvm.Tests
+namespace tvmInterpreter.Tests
 {
     public class UnitTest1
     {

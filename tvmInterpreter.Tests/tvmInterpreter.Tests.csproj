@@ -19,8 +19,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\tvm\tvm.csproj" />
-  </ItemGroup>
-
 </Project>

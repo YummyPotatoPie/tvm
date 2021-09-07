@@ -2,6 +2,8 @@
 using System.Text;
 using System.Collections.Generic;
 
+using tvm.Exceptions;
+
 namespace tvm
 {
     /// <summary>
@@ -15,6 +17,8 @@ namespace tvm
             {
                 var parsedArgs = ArgumentParser.ParseArgs(string.Join("", args));
                 var configuration = GetConfiguration(parsedArgs);
+
+                //if (configuration.Interpretation) Interpreter.Interpret(configuration);
             }
             catch (Exception e)
             {
@@ -63,7 +67,7 @@ namespace tvm
             StringBuilder errorMessage = new();
 
             if (configuration.SourceFilePaths.Length == 0) errorMessage.Append("Must be at least one source file path\n");
-            if (configuration.Interpretation == configuration.Compilation) errorMessage.Append("Cannot set interpretation mode and compilation mode at same time\n");
+            if (configuration.Interpretation == configuration.Compilation) errorMessage.Append("Cannot set interpretation mode and compilation mode at the same time\n");
 
             string message = errorMessage.ToString();
             if (message != "") throw new InvalidCommandLineArgumentsException(message);
