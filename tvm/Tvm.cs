@@ -15,8 +15,8 @@ namespace tvm
         {
             try
             {
-                var parsedArgs = ArgumentParser<ArgumentValue>.ParseArgs(string.Join(" ", args));
-                var configuration = GetConfiguration(parsedArgs);
+                Dictionary<ArgumentValue, ArgumentType> parsedArgs = new ArgumentParser<ArgumentValue>(string.Join(" ", args)).ParseArgs();
+                TvmConfiguration configuration = GetConfiguration(parsedArgs);
 
                 //if (configuration.Interpretation) Interpreter.Interpret(configuration);
             }
@@ -33,20 +33,20 @@ namespace tvm
         /// <param name="parsedArgs">Parsed command line arguments</param>
         /// <exception cref="InvalidCommandLineArgumentsException"></exception>
         /// <returns>Virtual machine configuration</returns>
-        private static TvmConfiguration GetConfiguration(Dictionary<ArgumentType, ArgumentValue> parsedArgs)
+        private static TvmConfiguration GetConfiguration(Dictionary<ArgumentValue, ArgumentType> parsedArgs)
         {
             Configurator configurator = new(); 
 
-            foreach (KeyValuePair<ArgumentType, ArgumentValue> arg in parsedArgs)
+            foreach (KeyValuePair<ArgumentValue, ArgumentType> arg in parsedArgs)
             {
-                if (arg.Key == ArgumentType.Filename) configurator = configurator.AddSourceFilePath(arg.Value.Argument);
-                else if (arg.Key == ArgumentType.Special)
+                if (arg.Value == ArgumentType.Filename) configurator = configurator.AddSourceFilePath(arg.Key.Argument);
+                else if (arg.Value == ArgumentType.Special)
                 {
-                    configurator = arg.Value.Argument switch
+                    configurator = arg.Key.Argument switch
                     {
                         "i" => configurator.InterpretingMode(),
                         "c" => configurator.CompilationMode(),
-                         _  => throw new InvalidCommandLineArgumentsException("Unknown commad line argument: -" + arg.Value.Argument)
+                         _  => throw new InvalidCommandLineArgumentsException("Unknown command line argument: -" + arg.Key.Argument)
                     };
                 }
                 //else statement for ArgumentType.NameSpecial
