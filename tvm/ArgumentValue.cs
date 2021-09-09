@@ -8,6 +8,11 @@
         public string Argument { get; private set; }
 
         public ArgumentValue(string argument) => Argument = argument;
+
+        public override bool Equals(object obj) => obj is ArgumentValue value && Argument == value.Argument;
+
+        public override int GetHashCode() => Argument.GetHashCode();
+
     }
 
     /// <summary>
