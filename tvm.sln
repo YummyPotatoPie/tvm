@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		CHANGELOG.md = CHANGELOG.md
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE = LICENSE
 		README.md = README.md
 		TinyByteCode.bnf = TinyByteCode.bnf
@@ -24,9 +26,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tvmInterpreter", "tvmInterp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tvmInterpreter.Tests", "tvmInterpreter.Tests\tvmInterpreter.Tests.csproj", "{5DB9D74A-F85B-462D-BEA8-B4652B4AE232}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tvmByteCodeParser", "tvmByteCodeParser\tvmByteCodeParser.csproj", "{164085D6-5393-439B-A502-7CDA55978D59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tvmByteCodeParser", "tvmByteCodeParser\tvmByteCodeParser.csproj", "{164085D6-5393-439B-A502-7CDA55978D59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tvmByteCodeParser.Tests", "tvmByteCodeParser.Tests\tvmByteCodeParser.Tests.csproj", "{FD3EBAAC-56A6-4B85-8812-763503703AC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tvmByteCodeParser.Tests", "tvmByteCodeParser.Tests\tvmByteCodeParser.Tests.csproj", "{FD3EBAAC-56A6-4B85-8812-763503703AC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{04F6F157-1ACB-4E39-AA22-513D96538B68}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{F5855679-F4B4-493B-AC28-17D434A72FE0}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug_report.md = .github\ISSUE_TEMPLATE\bug_report.md
+		.github\ISSUE_TEMPLATE\feature_request.md = .github\ISSUE_TEMPLATE\feature_request.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +79,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{04F6F157-1ACB-4E39-AA22-513D96538B68} = {CB595F90-C592-4ED8-9E49-26FD859A2776}
+		{F5855679-F4B4-493B-AC28-17D434A72FE0} = {04F6F157-1ACB-4E39-AA22-513D96538B68}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D951912C-A3C7-48AA-BB9C-53FEEC70F0AE}
