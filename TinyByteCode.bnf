@@ -1,2 +1,8 @@
-push che-to tam
-pop r1
+<number>	::= ([0-9]*)
+
+<push>		::= "push" <number>
+<pop>		::= "pop"
+<add>		::= "add"
+<sub>		::= "sub"
+<mul>		::= "mul"
+<div>		::= "div"
