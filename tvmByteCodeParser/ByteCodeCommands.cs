@@ -12,7 +12,7 @@ namespace tvmByteCodeParser
             { "add" , 0x3 },
             { "sub" , 0x4 },
             { "mul" , 0x5 },
-            { "div" , 0x6 };
+            { "div" , 0x6 }
         };
     }
 }
