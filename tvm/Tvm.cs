@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
 
-using tvm.Exceptions;
+using CommandLine;
 
 namespace tvm
 {
@@ -15,8 +14,19 @@ namespace tvm
         {
             try
             {
-                Dictionary<ArgumentValue, ArgumentType> parsedArgs = new ArgumentParser<ArgumentValue>(string.Join(" ", args)).ParseArgs();
-                TvmConfiguration configuration = GetConfiguration(parsedArgs);
+                Parser.Default.ParseArguments<CommandLineOptions>(args).WithParsed(option =>
+                {
+                    if (option.Interpretation)
+                    {
+                        Console.WriteLine("Interpretation mode");
+                    }
+                    if (option.ByteCodeFiles is IEnumerable<string>)
+                    {
+                        foreach (string str in option.ByteCodeFiles) Console.WriteLine(str);
+                    }
+                });
+
+                //TvmConfiguration configuration = GetConfiguration(parsedArgs);
 
                 //if (configuration.Interpretation) Interpreter.Interpret(configuration);
             }
@@ -33,7 +43,7 @@ namespace tvm
         /// <param name="parsedArgs">Parsed command line arguments</param>
         /// <exception cref="InvalidCommandLineArgumentsException"></exception>
         /// <returns>Virtual machine configuration</returns>
-        private static TvmConfiguration GetConfiguration(Dictionary<ArgumentValue, ArgumentType> parsedArgs)
+        /*private static TvmConfiguration GetConfiguration(Dictionary<ArgumentValue, ArgumentType> parsedArgs)
         {
             Configurator configurator = new(); 
 
@@ -56,6 +66,7 @@ namespace tvm
             CheckConfigurationCorrectness(configuration);
             return configuration;
         }
+        
 
         /// <summary>
         /// Checks the consistency and correctness of arguments
@@ -72,5 +83,6 @@ namespace tvm
             string message = errorMessage.ToString();
             if (message != "") throw new InvalidCommandLineArgumentsException(message);
         }
+        */
     }
 }
