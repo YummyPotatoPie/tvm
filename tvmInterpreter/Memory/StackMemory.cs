@@ -2,7 +2,7 @@
 
 namespace tvmInterpreter
 {
-    internal sealed class StackMemory
+    public sealed class StackMemory
     {
         private int[] _stack;
 
