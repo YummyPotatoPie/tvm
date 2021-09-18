@@ -40,7 +40,14 @@ namespace tbcc
 
         private static void CompileByteCodeFiles(string[] sourceFiles)
         {
+            foreach (string sourceFile in sourceFiles)
+            {
+                StreamReader reader = new(sourceFile);
+                BinaryWriter binaryWriter = new(File.Open(sourceFile + "c", FileMode.OpenOrCreate));
 
+                binaryWriter.Write(new ByteCodeParser(reader.ReadToEnd()).Parse());
+                binaryWriter.Close();
+            }
         }
     }
 }
