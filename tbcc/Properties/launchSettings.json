@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "tbcc": {
+      "commandName": "Project",
+      "commandLineArgs": "SC1.tbc SC2.tbc "
+    }
+  }
+}

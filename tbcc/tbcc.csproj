@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\tvmByteCodeCommands\tvmByteCodeCommands.csproj" />
+    <ProjectReference Include="..\tvmByteCodeParser\tvmByteCodeParser.csproj" />
   </ItemGroup>
 
 </Project>
