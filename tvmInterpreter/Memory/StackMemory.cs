@@ -12,7 +12,7 @@ namespace tvmInterpreter
 
         public StackMemory(int size)
         {
-            if (size == 0) throw new Exception();
+            if (size == 0) throw new ArgumentException("Stack size cannot be equal zero");
             _stack = new int[size];
         }
 
@@ -38,8 +38,8 @@ namespace tvmInterpreter
 
         public int Peek()
         {
-            if (_position < 0) throw new Exception();
-            return _stack[_position];
+            if (_position == 0) throw new InvalidOperationException("Cannot peek value from empty stack");
+            return _stack[_position - 1];
         }
     }
 }
