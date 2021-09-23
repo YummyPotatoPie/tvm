@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.IO;
 
 using CommandLine;
+
+using tvmByteCodeCompiler;
+using tvmInterpreter;
 
 namespace tvm
 {
@@ -11,25 +13,25 @@ namespace tvm
     /// </summary>
     public sealed class Tvm
     {
+        private enum ExecuteMode
+        {
+            Default, // Interpretation
+            Interpretation, 
+            Compilation
+        }
+
+        private static ExecuteMode _executeMode = ExecuteMode.Default;
+
+        private static bool _compiledRun = false;
+
+        private static string _filePath = "";
+
         public static void Main(string[] args)
         {
             try
             {
-                Parser.Default.ParseArguments<CommandLineOptions>(args).WithParsed(option =>
-                {
-                    if (option.Interpretation)
-                    {
-                        Console.WriteLine("Interpretation mode");
-                    }
-                    if (option.ByteCodeFiles is IEnumerable<string>)
-                    {
-                        foreach (string str in option.ByteCodeFiles) Console.WriteLine(str);
-                    }
-                });
-
-                //TvmConfiguration configuration = GetConfiguration(parsedArgs);
-
-                //if (configuration.Interpretation) Interpreter.Interpret(configuration);
+                ConfigureTvm(args);
+                Execute();
             }
             catch (Exception e)
             {
@@ -38,52 +40,59 @@ namespace tvm
             }
         }
 
-        /// <summary>
-        /// Get virtual machine configuration by command line arguments
-        /// </summary>
-        /// <param name="parsedArgs">Parsed command line arguments</param>
-        /// <exception cref="InvalidCommandLineArgumentsException"></exception>
-        /// <returns>Virtual machine configuration</returns>
-        /*private static TvmConfiguration GetConfiguration(Dictionary<ArgumentValue, ArgumentType> parsedArgs)
+        private static void ConfigureTvm(string[] args)
         {
-            Configurator configurator = new(); 
-
-            foreach (KeyValuePair<ArgumentValue, ArgumentType> arg in parsedArgs)
+            Parser.Default.ParseArguments<CommandLineOptions>(args).WithParsed(option =>
             {
-                if (arg.Value == ArgumentType.Filename) configurator = configurator.AddSourceFilePath(arg.Key.Argument);
-                else if (arg.Value == ArgumentType.Special)
+                if (!File.Exists(option.ByteCodeFile))
                 {
-                    configurator = arg.Key.Argument switch
-                    {
-                        "i" => configurator.InterpretingMode(),
-                        "c" => configurator.CompilationMode(),
-                         _  => throw new InvalidCommandLineArgumentsException("Unknown command line argument: -" + arg.Key.Argument)
-                    };
+                    Console.WriteLine("File does not exist");
+                    Environment.Exit(1);
                 }
-                //else statement for ArgumentType.NameSpecial
-            }
 
-            TvmConfiguration configuration = configurator.Build();
-            CheckConfigurationCorrectness(configuration);
-            return configuration;
+                if (option.Interpretation)
+                {
+                    _executeMode = ExecuteMode.Interpretation;
+                }
+                if (option.Compilation)
+                {
+                    if (_executeMode == ExecuteMode.Interpretation)
+                    {
+                        Console.WriteLine("Cannot set interpretation and compilation mode at the same time");
+                        Environment.Exit(1);
+                    }
+                    _executeMode = ExecuteMode.Compilation;
+                }
+
+                if (option.CompiledRun)
+                {
+                    CheckFileCorrectness(option.ByteCodeFile, ".tbcc");
+                    _compiledRun = !_compiledRun;
+                }
+                else CheckFileCorrectness(option.ByteCodeFile, ".tbc");
+
+                _filePath = option.ByteCodeFile;
+            });
         }
-        
 
-        /// <summary>
-        /// Checks the consistency and correctness of arguments
-        /// </summary>
-        /// <exception cref="InvalidCommandLineArgumentsException"></exception>
-        /// <param name="configuration">Virtual machine configuration</param>
-        private static void CheckConfigurationCorrectness(TvmConfiguration configuration)
+        private static void Execute()
         {
-            StringBuilder errorMessage = new();
+            byte[] commands;
 
-            if (configuration.SourceFilePaths.Length == 0) errorMessage.Append("Must be at least one source file path\n");
-            if (configuration.Interpretation == configuration.Compilation) errorMessage.Append("Cannot set interpretation mode and compilation mode at the same time\n");
+            if (_compiledRun) commands = File.ReadAllBytes(_filePath);
+            else commands = new ByteCodeCompiler(new StreamReader(_filePath).ReadToEnd()).Compile();
 
-            string message = errorMessage.ToString();
-            if (message != "") throw new InvalidCommandLineArgumentsException(message);
+            if (_executeMode == ExecuteMode.Interpretation || _executeMode == ExecuteMode.Default) new Interpreter(commands).Interpret();
+            else Console.WriteLine("Compilation mode does not support yet");
         }
-        */
+
+        private static void CheckFileCorrectness(string filePath, string extention)
+        {
+            if (!(Path.GetExtension(filePath) == extention))
+            {
+                Console.WriteLine("Invalid extention of input file");
+                Environment.Exit(1);
+            }
+        }
     }
 }
