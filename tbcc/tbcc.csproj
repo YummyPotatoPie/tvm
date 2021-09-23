@@ -10,8 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\tvmByteCodeCommands\tvmByteCodeCommands.csproj" />
-    <ProjectReference Include="..\tvmByteCodeParser\tvmByteCodeParser.csproj" />
+    <ProjectReference Include="..\tvmByteCodeCompiler\tvmByteCodeCompiler.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,8 @@
   "profiles": {
     "tbcc": {
       "commandName": "Project",
-      "commandLineArgs": "SC1.tbc SC2.tbc "
+      "commandLineArgs": "com.tbc bus.tbc entry.tbc ",
+      "workingDirectory": "C:\\Users\\Home-PC\\Desktop\\test"
     }
   }
 }
