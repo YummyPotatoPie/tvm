@@ -17,6 +17,7 @@ namespace tvmByteCodeCompiler
         {
             SkipWhiteSpaces();
             if (Eof()) return null;
+            if (_stream[_position] == '#') SkipComment();
             return ReadCommand();
         }
 
@@ -48,6 +49,17 @@ namespace tvmByteCodeCompiler
             {
                 if (_stream[_position] == '\n') Line++;
                 _position++;
+            }
+        }
+
+        private void SkipComment()
+        {
+            while (!Eof() && _stream[_position] == '#')
+            {
+                while (!Eof() && _stream[_position] != '\n') _position++;
+
+                SkipWhiteSpaces();
+                if (!Eof() && _stream[_position] != '#') break;
             }
         }
 
