@@ -11,7 +11,13 @@ namespace tvmInterpreter
 
         public StackMemory MemoryStack { get; private set; }
 
-        private Interpreter() => MemoryStack = new();
+        public RegisterMemory Registers { get; private set; }
+
+        private Interpreter()
+        {
+            MemoryStack = new();
+            Registers = new();
+        }
 
         public Interpreter(byte[] byteCode) : this() => Commands = new(byteCode);
 
@@ -55,6 +61,9 @@ namespace tvmInterpreter
                 case 0x6:
                     BinaryCommandHandle(BinaryCommands.Div);
                     break;
+                case 0x7:
+                    MemoryStack.Push(MemoryStack.Peek());
+                    break;
             }
         }
 
@@ -64,6 +73,12 @@ namespace tvmInterpreter
             {
                 case 0x1:
                     MemoryStack.Push(Commands.GetValue());
+                    break;
+                case 0x8:
+                    Registers.SetRegisterValue(Commands.GetValue(), MemoryStack.Peek());
+                    break;
+                case 0x9:
+                    MemoryStack.Push(Registers.GetRegisterValue(Commands.GetValue()));
                     break;
             }
         }
