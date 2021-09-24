@@ -7,3 +7,8 @@
 <sub>		::= "sub"
 <mul>		::= "mul"
 <div>		::= "div"
+<dup>		::= "dup"
+
+<peek>		::= "peek" <reg-value>
+<preg>		::= "preg" <reg-value>
+<reg-value>	::= (1 | 2 | 3 | 4)
