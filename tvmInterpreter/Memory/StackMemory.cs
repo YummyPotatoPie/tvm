@@ -38,7 +38,7 @@ namespace tvmInterpreter
 
         public int Peek()
         {
-            if (_position == 0) throw new InvalidOperationException("Cannot peek value from empty stack");
+            if (_position == 0) throw new InvalidOperationException("Segmentation fault: attempt to peek value, but stack is empty");
             return _stack[_position - 1];
         }
     }
