@@ -7,7 +7,9 @@ namespace tvmByteCodeCommands
     {
         public static Dictionary<string, byte> CommandsWithArgument { get; private set; } = new Dictionary<string, byte>
         {
-            { "push",   0x1 }
+            { "push",   0x1 },
+            { "peek",   0x8 },
+            { "preg",   0x9 }    
         };
 
         public static Dictionary<string, byte> CommandsWithoutArgument { get; private set; } = new Dictionary<string, byte>
@@ -16,7 +18,8 @@ namespace tvmByteCodeCommands
             { "add",    0x3 },
             { "sub",    0x4 },
             { "mul",    0x5 },
-            { "div",    0x6 }
+            { "div",    0x6 },
+            { "dup",    0x7 }
         };
     }
 }
