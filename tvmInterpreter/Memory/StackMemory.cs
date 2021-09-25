@@ -2,20 +2,33 @@
 
 namespace tvmInterpreter
 {
+    /// <summary>
+    /// Stack memory of TVM
+    /// </summary>
     public sealed class StackMemory
     {
         private int[] _stack;
 
         private int _position = 0;
 
+        /// <summary>
+        /// Create instance of stack memory with default size 1024
+        /// </summary>
         public StackMemory() => _stack = new int[1024];
 
+        /// <summary>
+        /// Create instance of stack memory with the specified size
+        /// </summary>
+        /// <param name="size">Size of stack</param>
         public StackMemory(int size)
         {
             if (size == 0) throw new ArgumentException("Stack size cannot be equal zero");
             _stack = new int[size];
         }
 
+        /// <summary>
+        /// Increase stack size
+        /// </summary>
         private void StackSizeIncrease()
         {
             int[] temp = new int[_stack.Length * 2];
@@ -23,6 +36,10 @@ namespace tvmInterpreter
             _stack = temp;
         }
 
+        /// <summary>
+        /// Push value to the top of the stack
+        /// </summary>
+        /// <param name="value">Number (another lol)</param>
         public void Push(int value)
         {
             if (_position == _stack.Length) StackSizeIncrease();
@@ -30,12 +47,19 @@ namespace tvmInterpreter
             _position++;
         }
 
+        /// <summary>
+        /// Delete value from top of the stack
+        /// </summary>
         public void Pop()
         {
             _stack[_position] = default;
             _position--;
         }
 
+        /// <summary>
+        /// Peeks value from top of the stack
+        /// </summary>
+        /// <returns>Value from top of the stack</returns>
         public int Peek()
         {
             if (_position == 0) throw new InvalidOperationException("Segmentation fault: attempt to peek value, but stack is empty");

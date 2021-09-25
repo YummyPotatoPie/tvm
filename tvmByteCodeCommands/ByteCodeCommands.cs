@@ -3,8 +3,14 @@ using System.Collections.Generic;
 
 namespace tvmByteCodeCommands
 {
+    /// <summary>
+    /// Tiny Byte Code commands
+    /// </summary>
     public static class ByteCodeCommands
     {
+        /// <summary>
+        /// Commands that execute without argument 
+        /// </summary>
         public static Dictionary<string, byte> CommandsWithArgument { get; private set; } = new Dictionary<string, byte>
         {
             { "push",   0x1 },
@@ -12,6 +18,9 @@ namespace tvmByteCodeCommands
             { "preg",   0x9 }    
         };
 
+        /// <summary>
+        /// Commands that execute with arguments 
+        /// </summary>
         public static Dictionary<string, byte> CommandsWithoutArgument { get; private set; } = new Dictionary<string, byte>
         {
             { "pop",    0x2 },

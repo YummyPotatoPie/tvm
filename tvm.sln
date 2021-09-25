@@ -28,9 +28,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tvmByteCodeCommands", "tvmByteCodeCommands\tvmByteCodeCommands.csproj", "{B5690926-D2F0-458B-B692-7C3F380B7828}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tvmByteCodeCompiler", "tvmByteCodeCompiler\tvmByteCodeCompiler.csproj", "{0632B3E2-8CBB-413A-A6F1-102887900E8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tvmByteCodeCompiler", "tvmByteCodeCompiler\tvmByteCodeCompiler.csproj", "{0632B3E2-8CBB-413A-A6F1-102887900E8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tbcc", "tbcc\tbcc.csproj", "{0F4EF974-44B2-426F-AD59-CF16D4C25081}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tbcc", "tbcc\tbcc.csproj", "{0F4EF974-44B2-426F-AD59-CF16D4C25081}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tvmDebugger", "tvmDebugger\tvmDebugger.csproj", "{76EAF63D-87AA-4319-820E-7C0F4DE08A14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +104,18 @@ Global
 		{0F4EF974-44B2-426F-AD59-CF16D4C25081}.Release|x64.Build.0 = Release|Any CPU
 		{0F4EF974-44B2-426F-AD59-CF16D4C25081}.Release|x86.ActiveCfg = Release|Any CPU
 		{0F4EF974-44B2-426F-AD59-CF16D4C25081}.Release|x86.Build.0 = Release|Any CPU
+		{76EAF63D-87AA-4319-820E-7C0F4DE08A14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76EAF63D-87AA-4319-820E-7C0F4DE08A14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76EAF63D-87AA-4319-820E-7C0F4DE08A14}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{76EAF63D-87AA-4319-820E-7C0F4DE08A14}.Debug|x64.Build.0 = Debug|Any CPU
+		{76EAF63D-87AA-4319-820E-7C0F4DE08A14}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{76EAF63D-87AA-4319-820E-7C0F4DE08A14}.Debug|x86.Build.0 = Debug|Any CPU
+		{76EAF63D-87AA-4319-820E-7C0F4DE08A14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76EAF63D-87AA-4319-820E-7C0F4DE08A14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76EAF63D-87AA-4319-820E-7C0F4DE08A14}.Release|x64.ActiveCfg = Release|Any CPU
+		{76EAF63D-87AA-4319-820E-7C0F4DE08A14}.Release|x64.Build.0 = Release|Any CPU
+		{76EAF63D-87AA-4319-820E-7C0F4DE08A14}.Release|x86.ActiveCfg = Release|Any CPU
+		{76EAF63D-87AA-4319-820E-7C0F4DE08A14}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

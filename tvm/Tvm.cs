@@ -9,10 +9,13 @@ using tvmInterpreter;
 namespace tvm
 {
     /// <summary>
-    /// Main program class 
+    /// Tiny Virtual Machine main class 
     /// </summary>
     public sealed class Tvm
     {
+        /// <summary>
+        /// Execute mode flags 
+        /// </summary>
         private enum ExecuteMode
         {
             Default, // Interpretation
@@ -24,8 +27,14 @@ namespace tvm
 
         private static bool _compiledRun = false;
 
+        private static bool _strictMode = false;
+
         private static string _filePath = "";
 
+        /// <summary>
+        /// Method sets configure of TVM and execute byte code 
+        /// </summary>
+        /// <param name="args">TVM settting</param>
         public static void Main(string[] args)
         {
             try
@@ -40,6 +49,10 @@ namespace tvm
             }
         }
 
+        /// <summary>
+        /// Sets TVM configuration
+        /// </summary>
+        /// <param name="args">TVM settings</param>
         private static void ConfigureTvm(string[] args)
         {
             Parser.Default.ParseArguments<CommandLineOptions>(args).WithParsed(option =>
@@ -72,20 +85,36 @@ namespace tvm
                 else CheckFileCorrectness(option.ByteCodeFile, ".tbc");
 
                 _filePath = option.ByteCodeFile;
+                _strictMode = option.StrictMode;
             });
         }
 
+        /// <summary>
+        /// Execute byte code
+        /// </summary>
         private static void Execute()
         {
             byte[] commands;
 
             if (_compiledRun) commands = File.ReadAllBytes(_filePath);
-            else commands = new ByteCodeCompiler(new StreamReader(_filePath).ReadToEnd()).Compile();
+            else
+            {
+                StreamReader reader = new(_filePath);
+                string sourceCode = reader.ReadToEnd();
+                reader.Close();
+
+                commands = new ByteCodeCompiler(sourceCode, _strictMode).Compile();
+            }
 
             if (_executeMode == ExecuteMode.Interpretation || _executeMode == ExecuteMode.Default) new Interpreter(commands).Interpret();
             else Console.WriteLine("Compilation mode does not support yet");
         }
 
+        /// <summary>
+        /// Checks correctness of input file 
+        /// </summary>
+        /// <param name="filePath">Input file with byte code</param>
+        /// <param name="extention">Correct extention for TVM configutarion</param>
         private static void CheckFileCorrectness(string filePath, string extention)
         {
             if (!(Path.GetExtension(filePath) == extention))

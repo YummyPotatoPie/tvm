@@ -5,16 +5,23 @@ using tvmByteCodeCommands;
 
 namespace tvmByteCodeCompiler
 {
+    /// <summary>
+    /// Compiler .tbc to .tbcc
+    /// </summary>
     public sealed class ByteCodeCompiler
     {
         private readonly ByteCodeParser _parser;
 
-        private readonly bool _strictMode = true;
+        private readonly bool _strictMode = false;
 
         public ByteCodeCompiler(string sourceCode) => _parser = new(sourceCode);
 
         public ByteCodeCompiler(string sourceCode, bool strictMode) : this(sourceCode) => _strictMode = strictMode;
 
+        /// <summary>
+        /// Compile program to opcode representation
+        /// </summary>
+        /// <returns>Program compiled to opcode</returns>
         public byte[] Compile()
         {
             List<byte> compiledCode = new();
@@ -34,6 +41,11 @@ namespace tvmByteCodeCompiler
             return compiledCode.ToArray();
         }
 
+        /// <summary>
+        /// Compile byte code command to opcode 
+        /// </summary>
+        /// <param name="currentCommand">Current program command</param>
+        /// <returns>Opcode of command with argument</returns>
         private byte[] CommandWithArgumentHandle(string currentCommand)
         {
             List<byte> bytes = new();
@@ -59,6 +71,11 @@ namespace tvmByteCodeCompiler
             return bytes.ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ls">List of program opcode</param>
+        /// <param name="bytes">Command opcode</param>
         private static void AddBytes(ref List<byte> ls, byte[] bytes)
         {
             foreach (byte b in bytes) ls.Add(b);

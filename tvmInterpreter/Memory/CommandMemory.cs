@@ -2,6 +2,9 @@
 
 namespace tvmInterpreter.Memory
 {
+    /// <summary>
+    /// Memory for TVM programs
+    /// </summary>
     public sealed class CommandMemory
     {
         private readonly byte[] _byteCode;
@@ -10,6 +13,10 @@ namespace tvmInterpreter.Memory
 
         public CommandMemory(byte[] byteCode) => _byteCode = byteCode;
 
+        /// <summary>
+        /// Reads number from command stack
+        /// </summary>
+        /// <returns>Current number at the command stream</returns>
         public int GetValue()
         {
             int value = 0;
@@ -26,10 +33,21 @@ namespace tvmInterpreter.Memory
             return value;
         }
 
+        /// <summary>
+        /// Return current command from command stack
+        /// </summary>
+        /// <returns>Current command</returns>
         public byte GetCurrentCommand() => _byteCode[_position];
 
+        /// <summary>
+        /// Checks if command stream reached end
+        /// </summary>
+        /// <returns>True if reached end else false</returns>
         public bool EndOfProgram() => _position >= _byteCode.Length;
 
+        /// <summary>
+        /// Sets command pointer to the next command
+        /// </summary>
         public void Next() => _position++;
     }
 }

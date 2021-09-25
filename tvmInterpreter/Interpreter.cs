@@ -5,6 +5,9 @@ using tvmInterpreter.Memory;
 
 namespace tvmInterpreter
 {
+    /// <summary>
+    /// Interpreter fo Tiny Byte Code
+    /// </summary>
     public sealed class Interpreter
     {
         public CommandMemory Commands { get; private set; }
@@ -13,16 +16,31 @@ namespace tvmInterpreter
 
         public RegisterMemory Registers { get; private set; }
 
+        /// <summary>
+        /// Constructor for create instance of MemoryStack and Registers
+        /// </summary>
         private Interpreter()
         {
             MemoryStack = new();
             Registers = new();
         }
 
+        /// <summary>
+        /// Constructor sets stack size to default value 1024 integers number
+        /// </summary>
+        /// <param name="byteCode">Tiny Byte Code commands</param>
         public Interpreter(byte[] byteCode) : this() => Commands = new(byteCode);
 
+        /// <summary>
+        /// Constructor sets stack size to default value 1024 integers number
+        /// </summary>
+        /// <param name="byteCode">Tiny Byte Code commands</param>
+        /// <param name="size">Stack size</param>
         public Interpreter(byte[] byteCode, int size) : this(byteCode) => MemoryStack = new(size);
 
+        /// <summary>
+        /// Interpret Tiny Byte Code
+        /// </summary>
         public void Interpret()
         {
             while (!Commands.EndOfProgram())
@@ -42,6 +60,10 @@ namespace tvmInterpreter
             }
         }
 
+        /// <summary>
+        /// Handle command without arguments
+        /// </summary>
+        /// <param name="command">Current command</param>
         private void CommandWithoutArgumentHandle(byte command)
         {
             switch (command)
@@ -67,6 +89,10 @@ namespace tvmInterpreter
             }
         }
 
+        /// <summary>
+        /// Handle command with argument
+        /// </summary>
+        /// <param name="command">Current command</param>
         private void CommandWithArgumentHandle(byte command)
         {
             switch (command)
@@ -83,12 +109,20 @@ namespace tvmInterpreter
             }
         }
 
+        /// <summary>
+        /// Execute binary commands
+        /// </summary>
+        /// <param name="command">Current command</param>
         private void BinaryCommandHandle(Func<int, int, int> command)
         {
             int a = GetValueFromStack(), b = GetValueFromStack();
-            MemoryStack.Push(command(b, a));
+            MemoryStack.Push(command(a, b));
         }
 
+        /// <summary>
+        /// Gets value from stack top with pop it
+        /// </summary>
+        /// <returns>Value from stack top </returns>
         private int GetValueFromStack()
         {
             int value = MemoryStack.Peek(); MemoryStack.Pop();

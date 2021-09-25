@@ -9,6 +9,9 @@
 <div>		::= "div"
 <dup>		::= "dup"
 
+<salloc>	::= "salloc"
+<ptrf>		::= "ptrf" <number>
+
 <peek>		::= "peek" <reg-value>
 <preg>		::= "preg" <reg-value>
 <reg-value>	::= (1 | 2 | 3 | 4)

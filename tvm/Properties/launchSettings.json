@@ -2,7 +2,7 @@
   "profiles": {
     "tvm": {
       "commandName": "Project",
-      "commandLineArgs": "com.tbc --interpret",
+      "commandLineArgs": "com.tbc",
       "workingDirectory": "C:\\Users\\Home-PC\\Desktop"
     }
   }

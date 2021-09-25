@@ -3,6 +3,9 @@ using System.Text;
 
 namespace tvmByteCodeCompiler
 {
+    /// <summary>
+    /// Parser for .tbc files
+    /// </summary>
     public sealed class ByteCodeParser
     {
         private readonly string _stream;
@@ -13,14 +16,26 @@ namespace tvmByteCodeCompiler
 
         public ByteCodeParser(string stream) => _stream = stream;
 
+        /// <summary>
+        /// Reads next command at the stream
+        /// </summary>
+        /// <returns>Next command at the stream</returns>
         public string NextCommand()
         {
             SkipWhiteSpaces();
             if (Eof()) return null;
-            if (_stream[_position] == '#') SkipComment();
+            if (_stream[_position] == '#')
+            {
+                SkipComment();
+                if (Eof()) return null;
+            }
             return ReadCommand();
         }
 
+        /// <summary>
+        /// Reads next number
+        /// </summary>
+        /// <returns>Next number at the stream</returns>
         public int NextValue()
         {
             SkipWhiteSpaces();
@@ -30,6 +45,10 @@ namespace tvmByteCodeCompiler
             else throw new ArgumentException($"ERROR: value at line {Line} is not 32bit integer number");
         }
 
+        /// <summary>
+        /// Reads current command at the stream
+        /// </summary>
+        /// <returns>Current command at the stream</returns>
         private string ReadCommand()
         {
             StringBuilder command = new();
@@ -43,6 +62,9 @@ namespace tvmByteCodeCompiler
             return command.ToString();
         }
 
+        /// <summary>
+        /// Skips whitespaces
+        /// </summary>
         private void SkipWhiteSpaces()
         {
             while (!Eof() && char.IsWhiteSpace(_stream[_position]))
@@ -52,6 +74,9 @@ namespace tvmByteCodeCompiler
             }
         }
 
+        /// <summary>
+        /// Skips comment
+        /// </summary>
         private void SkipComment()
         {
             while (!Eof() && _stream[_position] == '#')
@@ -63,6 +88,10 @@ namespace tvmByteCodeCompiler
             }
         }
 
+        /// <summary>
+        /// Checks if stream reached end 
+        /// </summary>
+        /// <returns>True if reached end of stream else false</returns>
         private bool Eof() => _stream.Length == _position;
     }
 }
