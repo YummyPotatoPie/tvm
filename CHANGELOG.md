@@ -6,8 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 - Just-in-Time compiler for x86 architecture
-- More commands for virtual machine
 - Command "int" implementation
+- Commands "label" and "call" 
+- Jump commands: "je", "jne", "jl", "jb", "jmp"
+
+## [0.4.0] - 2021-09-27
+## Added
+- Command "cmp": compares values and set special flag represents result of compare
+- Flags for compare result
+- Command "shiftr": right binary shift
+- Command "shiftl": left binary shift
 
 ## [0.3.0] - 2021-09-26
 ## Added 
