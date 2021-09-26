@@ -11,6 +11,8 @@ namespace tvmInterpreter
 
         private int _position = 0;
 
+        private int _stackTopPosition = 0;
+
         /// <summary>
         /// Create instance of stack memory with default size 1024
         /// </summary>
@@ -45,6 +47,7 @@ namespace tvmInterpreter
             if (_position == _stack.Length) StackSizeIncrease();
             _stack[_position] = value;
             _position++;
+            _stackTopPosition++;
         }
 
         /// <summary>
@@ -52,8 +55,10 @@ namespace tvmInterpreter
         /// </summary>
         public void Pop()
         {
-            _stack[_position] = default;
+            if (_position == 0) throw new InvalidOperationException("Segmentation fault: attempt to pop value from empty stack");
+            _stack[_position - 1] = default;
             _position--;
+            _stackTopPosition--;
         }
 
         /// <summary>
@@ -65,5 +70,20 @@ namespace tvmInterpreter
             if (_position == 0) throw new InvalidOperationException("Segmentation fault: attempt to peek value, but stack is empty");
             return _stack[_position - 1];
         }
+
+        public int Peek(int offset)
+        {
+            CheckOffset(offset); 
+            return _stack[_position + offset];
+        }
+
+        /// <summary>
+        /// Checks offset correctness
+        /// </summary>
+        /// <param name="offset">Offset value</param>
+        /// <returns>True if offset correct else false</returns>
+        private bool CheckOffset(int offset) => 
+            _position + offset >= 0 && _position + offset < _stackTopPosition && _position != 0 
+            ? true : throw new InvalidOperationException("Segmentation fault: attempt to use value from invalid address");
     }
 }

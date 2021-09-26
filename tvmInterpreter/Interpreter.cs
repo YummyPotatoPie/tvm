@@ -106,6 +106,15 @@ namespace tvmInterpreter
                 case 0x9:
                     MemoryStack.Push(Registers.GetRegisterValue(Commands.GetValue()));
                     break;
+                case 0xA:
+                    int offset = Commands.GetValue();
+                    MemoryStack.Push(MemoryStack.Peek(offset));
+                    break;
+                case 0xB:
+                    int countOfValues = Commands.GetValue();
+                    for (int i = 0; i < countOfValues; i++) MemoryStack.Pop();
+                    break;
+                //case 0xC:
             }
         }
 
