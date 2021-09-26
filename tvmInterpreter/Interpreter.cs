@@ -16,6 +16,8 @@ namespace tvmInterpreter
 
         public RegisterMemory Registers { get; private set; }
 
+        public Flags ExecuteFlags { get; private set; }
+
         /// <summary>
         /// Constructor for create instance of MemoryStack and Registers
         /// </summary>
@@ -23,6 +25,7 @@ namespace tvmInterpreter
         {
             MemoryStack = new();
             Registers = new();
+            ExecuteFlags = new();
         }
 
         /// <summary>
@@ -86,6 +89,18 @@ namespace tvmInterpreter
                 case 0x7:
                     MemoryStack.Push(MemoryStack.Peek());
                     break;
+                case 0xD:
+                    int first = MemoryStack.Peek(-1), second = MemoryStack.Peek();
+                    if (first >= second) ExecuteFlags.CompareFlag = CompareFlags.Bigger;
+                    else if (first <= second) ExecuteFlags.CompareFlag = CompareFlags.Lower;
+                    else ExecuteFlags.CompareFlag = CompareFlags.Equal;
+                    break;
+                case 0xE:
+                    BinaryCommandHandle(BinaryCommands.ShiftRight);
+                    break;
+                case 0xF:
+                    BinaryCommandHandle(BinaryCommands.ShiftLeft);
+                    break;
             }
         }
 
@@ -125,7 +140,7 @@ namespace tvmInterpreter
         private void BinaryCommandHandle(Func<int, int, int> command)
         {
             int a = GetValueFromStack(), b = GetValueFromStack();
-            MemoryStack.Push(command(a, b));
+            MemoryStack.Push(command(b, a));
         }
 
         /// <summary>
