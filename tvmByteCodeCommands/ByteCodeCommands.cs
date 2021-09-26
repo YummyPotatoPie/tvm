@@ -15,7 +15,10 @@ namespace tvmByteCodeCommands
         {
             { "push",   0x1 },
             { "peek",   0x8 },
-            { "preg",   0x9 }    
+            { "preg",   0x9 },
+            { "ptrfc",  0xA },
+            { "vpop",   0xB },
+            { "int",    0xC },
         };
 
         /// <summary>
