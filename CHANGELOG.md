@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - Just-in-Time compiler for x86 architecture
 - More commands for virtual machine
+- Command "int" implementation
+
+## [0.3.0] - 2021-09-26
+## Added 
+- Command "ptrfc": copy value from stack with offset of pointer
+- Command "vpop": pop values from stack n - times
+- Command "int": interruption (without implementation yet)
+
+## Fixed 
+- ByteCodeParser.SkipComments() some bug
 
 ## [0.2.0] - 2021-09-24
 ## Added
@@ -19,6 +29,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2021-09-23
 ### Added 
 - Simple interpreter for execute byte code
-- Simple command: push, pop, add, sub, mul, div
+- Simple command: "push", "pop", "add", "sub", "mul", "div"
 - Byte code parser and compiler
 - Special utility for compile .tbc files to .tbcc 
