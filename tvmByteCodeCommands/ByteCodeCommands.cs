@@ -18,7 +18,7 @@ namespace tvmByteCodeCommands
             { "preg",   0x9 },
             { "ptrfc",  0xA },
             { "vpop",   0xB },
-            { "int",    0xC },
+            { "int",    0xC }
         };
 
         /// <summary>
@@ -31,7 +31,10 @@ namespace tvmByteCodeCommands
             { "sub",    0x4 },
             { "mul",    0x5 },
             { "div",    0x6 },
-            { "dup",    0x7 }
+            { "dup",    0x7 },
+            { "cmp",    0xD },
+            { "shiftr", 0xE },
+            { "shiftl", 0xF }
         };
     }
 }
