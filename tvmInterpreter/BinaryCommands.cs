@@ -1,4 +1,5 @@
 ﻿using System;
+using tvmInterpreter.Memory;
 
 namespace tvmInterpreter
 {
@@ -38,5 +39,21 @@ namespace tvmInterpreter
         /// <param name="b">Second value</param>
         /// <returns>Division result</returns>
         public static int Div(int a, int b) => b == 0 ? throw new ArgumentException("Division by zero") : a / b;
+
+        /// <summary>
+        /// Right binary shift command
+        /// </summary>
+        /// <param name="a">First value</param>
+        /// <param name="b">Second value</param>
+        /// <returns>Right binary shift result</returns>
+        public static int ShiftRight(int a, int b) => a >> b;
+
+        /// <summary>
+        /// Left binary shift command
+        /// </summary>
+        /// <param name="a">First value</param>
+        /// <param name="b">Second value</param>
+        /// <returns>Left binary shift result</returns>
+        public static int ShiftLeft(int a, int b) => a << b;
     }
 }
