@@ -39,6 +39,15 @@ namespace tvmInterpreter
         }
 
         /// <summary>
+        /// Sets value to the stack with offset 
+        /// </summary>
+        public void SetValue(int value, int offset)
+        {
+            if (CheckOffset(offset)) _stack[_position + offset - 1] = value;
+            else throw new ArgumentException("Segmentation fault: attempt to set value at invalid address");
+        }
+
+        /// <summary>
         /// Push value to the top of the stack
         /// </summary>
         /// <param name="value">Number (another lol)</param>
@@ -74,7 +83,7 @@ namespace tvmInterpreter
         public int Peek(int offset)
         {
             CheckOffset(offset); 
-            return _stack[_position + offset];
+            return _stack[_position + offset - 1];
         }
 
         /// <summary>
@@ -83,7 +92,7 @@ namespace tvmInterpreter
         /// <param name="offset">Offset value</param>
         /// <returns>True if offset correct else false</returns>
         private bool CheckOffset(int offset) => 
-            _position + offset >= 0 && _position + offset < _stackTopPosition && _position != 0 
+            _position + offset >= 0 && _position + offset <= _stackTopPosition && _position != 0 
             ? true : throw new InvalidOperationException("Segmentation fault: attempt to use value from invalid address");
     }
 }
