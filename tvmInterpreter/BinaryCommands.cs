@@ -55,5 +55,29 @@ namespace tvmInterpreter
         /// <param name="b">Second value</param>
         /// <returns>Left binary shift result</returns>
         public static int ShiftLeft(int a, int b) => a << b;
+
+        /// <summary>
+        /// Binary xor operation
+        /// </summary>
+        /// <param name="a">First value</param>
+        /// <param name="b">Second value</param>
+        /// <returns>Binary xor result</returns>
+        public static int Xor(int a, int b) => a ^ b;
+
+        /// <summary>
+        /// Binary or operation
+        /// </summary>
+        /// <param name="a">First value</param>
+        /// <param name="b">Second value</param>
+        /// <returns>Binary or result</returns>
+        public static int Or(int a, int b) => a | b;
+
+        /// <summary>
+        /// Binary and operation
+        /// </summary>
+        /// <param name="a">First value</param>
+        /// <param name="b">Second value</param>
+        /// <returns>Binary and result</returns>
+        public static int And(int a, int b) => a & b;
     }
 }
