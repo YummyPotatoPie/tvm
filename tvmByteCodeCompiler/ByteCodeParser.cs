@@ -33,6 +33,19 @@ namespace tvmByteCodeCompiler
         }
 
         /// <summary>
+        /// Reads next command with save stream pointer
+        /// </summary>
+        /// <returns>Next command</returns>
+        public string ReadNextCommand()
+        {
+            int pointer = _position;
+            string command = NextCommand();
+
+            _position = pointer;
+            return command;
+        }
+
+        /// <summary>
         /// Reads next number
         /// </summary>
         /// <returns>Next number at the stream</returns>
@@ -44,6 +57,11 @@ namespace tvmByteCodeCompiler
             if (int.TryParse(ReadCommand(), out int value)) return value;
             else throw new ArgumentException($"ERROR: value at line {Line} is not 32bit integer number");
         }
+
+        /// <summary>
+        /// Sets stream pointer to start
+        /// </summary>
+        public void Reset() => _position = 0;
 
         /// <summary>
         /// Reads current command at the stream
