@@ -14,6 +14,12 @@ namespace tvmInterpreter.Memory
         public CommandMemory(byte[] byteCode) => _byteCode = byteCode;
 
         /// <summary>
+        /// Set new pointer position
+        /// </summary>
+        /// <param name="pointer">New pointer position</param>
+        public void SetPointer(int pointer) => _position = pointer;
+
+        /// <summary>
         /// Reads number from command stack
         /// </summary>
         /// <returns>Current number at the command stream</returns>
