@@ -7,8 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - Just-in-Time compiler for x86 architecture
 - Command "int" implementation
-- Commands "label" and "call" 
-- Jump commands: "je", "jne", "jl", "jb", "jmp"
+- Command "ret": return control after call procedure
+
+## [0.6.0] - 2021-09-29
+## Added
+- Command jumps commands
+- Command "label" implementation
+- Command "call" (not implemented yet)
+- Command "ptrfw": pointer offset write
+
+## Changed
+- ByteCodeCompiler implementation, now it has two phases of compilation
+- ByteCodeParser implementation, now it can reset command stream pointer
+- Command "ptrfc" renamed, now its "ptrfr": pointer offset read
+
+## [0.5.0] - 2021-09-28
+## Added
+- Command "xor": binary xor operation
+- Command "or": binary or operatrion
+- Command "and": binary and operation
 
 ## [0.4.0] - 2021-09-27
 ## Added
