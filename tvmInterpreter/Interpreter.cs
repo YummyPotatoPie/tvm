@@ -59,6 +59,10 @@ namespace tvmInterpreter
                 {
                     CommandWithoutArgumentHandle(currentCommand);
                 }
+                else if (ByteCodeCommands.JumpCommands.ContainsValue(currentCommand))
+                {
+                    JumpCommand(currentCommand);
+                }
                 else throw new ArgumentException("Invalid command or value");
             }
         }
@@ -89,17 +93,26 @@ namespace tvmInterpreter
                 case 0x7:
                     MemoryStack.Push(MemoryStack.Peek());
                     break;
-                case 0xD:
+                case 0xC:
                     int first = MemoryStack.Peek(-1), second = MemoryStack.Peek();
-                    if (first >= second) ExecuteFlags.CompareFlag = CompareFlags.Bigger;
-                    else if (first <= second) ExecuteFlags.CompareFlag = CompareFlags.Lower;
+                    if (first > second) ExecuteFlags.CompareFlag = CompareFlags.Bigger;
+                    else if (first < second) ExecuteFlags.CompareFlag = CompareFlags.Lower;
                     else ExecuteFlags.CompareFlag = CompareFlags.Equal;
                     break;
-                case 0xE:
+                case 0xD:
                     BinaryCommandHandle(BinaryCommands.ShiftRight);
                     break;
-                case 0xF:
+                case 0xE:
                     BinaryCommandHandle(BinaryCommands.ShiftLeft);
+                    break;
+                case 0xF:
+                    BinaryCommandHandle(BinaryCommands.Xor);
+                    break;
+                case 0x10:
+                    BinaryCommandHandle(BinaryCommands.Or);
+                    break;
+                case 0x11:
+                    BinaryCommandHandle(BinaryCommands.And);
                     break;
             }
         }
@@ -129,7 +142,36 @@ namespace tvmInterpreter
                     int countOfValues = Commands.GetValue();
                     for (int i = 0; i < countOfValues; i++) MemoryStack.Pop();
                     break;
-                //case 0xC:
+                case 0x1A:
+                    MemoryStack.SetValue(MemoryStack.Peek(), Commands.GetValue());
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Jump commands handler
+        /// </summary>
+        /// <param name="command">Jump command opcode</param>
+        private void JumpCommand(byte command)
+        {
+            int address = Commands.GetValue();
+            switch (command)
+            {
+                case 0x15:
+                    if (ExecuteFlags.CompareFlag == CompareFlags.Lower) Commands.SetPointer(address);
+                    break;
+                case 0x16:
+                    if (ExecuteFlags.CompareFlag == CompareFlags.Bigger) Commands.SetPointer(address);
+                    break;
+                case 0x17:
+                    if (ExecuteFlags.CompareFlag == CompareFlags.Equal) Commands.SetPointer(address);
+                    break;
+                case 0x18:
+                    if (ExecuteFlags.CompareFlag != CompareFlags.Equal) Commands.SetPointer(address);
+                    break;
+                case 0x19:
+                    Commands.SetPointer(address);
+                    break;
             }
         }
 
