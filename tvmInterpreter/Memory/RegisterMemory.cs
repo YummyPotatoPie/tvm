@@ -7,7 +7,7 @@ namespace tvmInterpreter.Memory
     /// </summary>
     public sealed class RegisterMemory
     {
-        private readonly int[] _registers = { 0, 0, 0, 0 };
+        private readonly int[] _registers = { 0, 0 };
 
         public RegisterMemory() { }
 
@@ -35,6 +35,6 @@ namespace tvmInterpreter.Memory
         /// </summary>
         /// <param name="registerNumber">Regiser number</param>
         /// <returns>True if valid register number (1-4) else false</returns>
-        private static bool IsValidRegisterNumber(int registerNumber) => registerNumber >= 1 && registerNumber <= 4;
+        private bool IsValidRegisterNumber(int registerNumber) => registerNumber >= 1 && registerNumber <= _registers.Length + 1;
     }
 }
