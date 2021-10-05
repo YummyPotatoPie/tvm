@@ -19,7 +19,8 @@ namespace tvmByteCodeCommands
             { "ptrfr",  0xA  },
             { "vpop",   0xB  },
             { "int",    0x14 },
-            { "ptrfw",  0x1A }
+            { "ptrfw",  0x1A },
+            { "rstk",   0x1E }
         };
 
         /// <summary>
@@ -38,7 +39,11 @@ namespace tvmByteCodeCommands
             { "shiftl", 0xE  },
             { "xor",    0xF  },
             { "or",     0x10 },
-            { "and",    0x11 }
+            { "and",    0x11 },
+            { "ret",    0x1B },
+            { "mod",    0x1C },
+            { "adsr",   0x1D },
+            { "adsw",   0x1F }
         };
 
         /// <summary>
