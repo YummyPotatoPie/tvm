@@ -61,9 +61,28 @@ namespace tvmInterpreter
                 }
                 else if (ByteCodeCommands.JumpCommands.ContainsValue(currentCommand))
                 {
-                    JumpCommand(currentCommand);
+                    JumpCommandHandle(currentCommand);
+                }
+                else if (ByteCodeCommands.SpecialCommands.ContainsValue(currentCommand))
+                {
+                    SpecialCommandHandle(currentCommand);
                 }
                 else throw new ArgumentException("Invalid command or value");
+            }
+        }
+
+        /// <summary>
+        /// Handle special commands 
+        /// </summary>
+        /// <param name="command">Current command</param>
+        private void SpecialCommandHandle(byte command)
+        {
+            switch (command)
+            {
+                case 0x13:
+                    int address = Commands.GetValue();
+                    Commands.TransferControl(address);
+                    break;
             }
         }
 
@@ -114,6 +133,24 @@ namespace tvmInterpreter
                 case 0x11:
                     BinaryCommandHandle(BinaryCommands.And);
                     break;
+                case 0x1B:
+                    Commands.ReturnControl();
+                    break;
+                case 0x1C:
+                    BinaryCommandHandle(BinaryCommands.Mod);
+                    break;
+                case 0x1D:
+                    int addressToRead = MemoryStack.Peek();
+                    MemoryStack.Pop();
+                    MemoryStack.Push(MemoryStack.PeekValueAddressed(addressToRead));
+                    break;
+                case 0x1F:
+                    int addressToWriteValue = MemoryStack.Peek();
+                    MemoryStack.Pop();
+                    int valueToWrite = MemoryStack.Peek();
+                    MemoryStack.Pop();
+                    MemoryStack.SetValueAddressed(valueToWrite, addressToWriteValue);
+                    break;
             }
         }
 
@@ -145,6 +182,39 @@ namespace tvmInterpreter
                 case 0x1A:
                     MemoryStack.SetValue(MemoryStack.Peek(), Commands.GetValue());
                     break;
+                case 0x14:
+                    int value = Commands.GetValue();
+                    InterruptHandle(value);
+                    break;
+                case 0x1E:
+                    int reserveSize = Commands.GetValue();
+                    for (int i = 0; i < reserveSize; i++) MemoryStack.Push(0);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Handles interruptions
+        /// </summary>
+        /// <param name="interruptNumber">Interrupt number</param>
+        private void InterruptHandle(int interruptNumber)
+        {
+            switch (interruptNumber)
+            {
+                case 1:
+                    Console.Write((char)MemoryStack.Peek());
+                    break;
+                case 2:
+                    try
+                    {
+                        MemoryStack.Push(Convert.ToInt32(Console.ReadLine()));
+                    }
+                    catch
+                    {
+                        Console.WriteLine("\nInvalid number format");
+                        Environment.Exit(0);
+                    }
+                    break;
             }
         }
 
@@ -152,7 +222,7 @@ namespace tvmInterpreter
         /// Jump commands handler
         /// </summary>
         /// <param name="command">Jump command opcode</param>
-        private void JumpCommand(byte command)
+        private void JumpCommandHandle(byte command)
         {
             int address = Commands.GetValue();
             switch (command)
