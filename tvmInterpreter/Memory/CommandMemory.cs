@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace tvmInterpreter.Memory
 {
@@ -11,13 +12,38 @@ namespace tvmInterpreter.Memory
 
         private int _position = 0;
 
-        public CommandMemory(byte[] byteCode) => _byteCode = byteCode;
+        private readonly Stack<int> _callsReturnAddresses;
+
+        private CommandMemory() => _callsReturnAddresses = new();
+
+        public CommandMemory(byte[] byteCode) : this() => _byteCode = byteCode;
 
         /// <summary>
         /// Set new pointer position
         /// </summary>
         /// <param name="pointer">New pointer position</param>
         public void SetPointer(int pointer) => _position = pointer;
+
+        /// <summary>
+        /// Transfer command execute control
+        /// </summary>
+        /// <param name="address"></param>
+        public void TransferControl(int address)
+        {
+            _callsReturnAddresses.Push(_position);
+            _position = address;
+        }
+
+        /// <summary>
+        /// Returns commands execute control
+        /// </summary>
+        public void ReturnControl()
+        {
+            if (_callsReturnAddresses.Count == 0) Environment.Exit(0);
+
+            _position = _callsReturnAddresses.Peek();
+            _callsReturnAddresses.Pop();
+        }
 
         /// <summary>
         /// Reads number from command stack
