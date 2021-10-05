@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE = LICENSE
 		README.md = README.md
-		TinyByteCode.bnf = TinyByteCode.bnf
+		Rule110.tbc = Rule110.tbc
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tvmInterpreter", "tvmInterpreter\tvmInterpreter.csproj", "{CD71BA0B-79A3-4E0F-BD4D-7C7E5EDA9439}"
@@ -32,7 +32,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tvmByteCodeCompiler", "tvmB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tbcc", "tbcc\tbcc.csproj", "{0F4EF974-44B2-426F-AD59-CF16D4C25081}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tvmDebugger", "tvmDebugger\tvmDebugger.csproj", "{76EAF63D-87AA-4319-820E-7C0F4DE08A14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tvmDebugger", "tvmDebugger\tvmDebugger.csproj", "{76EAF63D-87AA-4319-820E-7C0F4DE08A14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
