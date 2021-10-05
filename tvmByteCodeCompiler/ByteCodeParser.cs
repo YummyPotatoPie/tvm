@@ -61,7 +61,11 @@ namespace tvmByteCodeCompiler
         /// <summary>
         /// Sets stream pointer to start
         /// </summary>
-        public void Reset() => _position = 0;
+        public void Reset()
+        {
+            _position = 0;
+            Line = 1;
+        }
 
         /// <summary>
         /// Reads current command at the stream
