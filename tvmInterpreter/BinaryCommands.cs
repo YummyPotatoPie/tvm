@@ -1,5 +1,4 @@
 ﻿using System;
-using tvmInterpreter.Memory;
 
 namespace tvmInterpreter
 {
@@ -79,5 +78,14 @@ namespace tvmInterpreter
         /// <param name="b">Second value</param>
         /// <returns>Binary and result</returns>
         public static int And(int a, int b) => a & b;
+
+
+        /// <summary>
+        /// Calculate remainder
+        /// </summary>
+        /// <param name="a">First value</param>
+        /// <param name="b">Second value</param>
+        /// <returns>Remainder</returns>
+        public static int Mod(int a, int b) => a % b;
     }
 }
