@@ -6,8 +6,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 - Just-in-Time compiler for x86 architecture
-- Command "int" implementation
-- Command "ret": return control after call procedure
+
+## [0.8.1] - 2021-10-05
+## Added
+- Method StackMemory.Reserve(int size) that move top stack pointer 
+
+## Changed
+- Command "rstk" implementation
+- Interruptions set
+
+## [0.8.0] - 2021-10-05
+## Added
+- Command "adsr": read value from address
+- Command "adsw": write vlue to the address
+- Command "rstk": reserve stack 
+
+## Fixed
+- ByteCodeParser.Reset() error when Line does not sets to 1
+
+## [0.7.0] - 2021-09-30
+## Added
+- Command "call" implementation
+- Command "ret" implementation
+- Command "mod": calculate remainder
+- Command "int": implementation
+
+## Changed 
+- Now virtual machine have only 2 registers 
 
 ## [0.6.0] - 2021-09-29
 ## Added
