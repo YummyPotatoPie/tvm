@@ -187,8 +187,7 @@ namespace tvmInterpreter
                     InterruptHandle(value);
                     break;
                 case 0x1E:
-                    int reserveSize = Commands.GetValue();
-                    for (int i = 0; i < reserveSize; i++) MemoryStack.Push(0);
+                    MemoryStack.Reserve(Commands.GetValue());
                     break;
             }
         }
