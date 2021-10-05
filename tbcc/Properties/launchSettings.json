@@ -2,8 +2,8 @@
   "profiles": {
     "tbcc": {
       "commandName": "Project",
-      "commandLineArgs": "com.tbc bus.tbc entry.tbc ",
-      "workingDirectory": "C:\\Users\\Home-PC\\Desktop\\test"
+      "commandLineArgs": "Rule110.tbc",
+      "workingDirectory": "C:\\Users\\Home-PC\\Desktop"
     }
   }
 }
