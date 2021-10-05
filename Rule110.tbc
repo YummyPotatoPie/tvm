@@ -1,0 +1,234 @@
+# Proof of Tiny Byte Code Turing-Complete
+#
+# int Module(int index, int offset, int size) => (index + offset + size) % size;
+#
+# int DeadOrAlive(int p, int q, int r) => (q + r + qr + pqr) mod 2;
+#
+# void Rule110()
+# {
+#     int[] automata = {0, 1, 0, 0, 0, 0, 0, 0, 0, 0};
+#     int[] temp = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+#     string deadAndAlive = " *";
+#
+#     for (int i = 0; i < 10; i++)
+#     {
+#         for (int j = 0; j < 10; j++)
+#         {
+#             temp[j] = DeadOrAlive(Module(j, -1, 10), Module(j, 0, 10), Module(j, 1, 10));
+#         }
+# 
+#         for (int j = 0; j < 10; j++)
+#         {
+#             print(deadAndAlive[temp[j]]);
+#             automata[j] = temp[j];
+#         }
+#         print("\n");
+#     }
+# }
+
+label Rule110
+    rstk 200                    # int[] automata = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    rstk 200                    # int[] temp = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    push 32                     # deadAndAlive[0] = ' '
+    push 42                     # deadAndAlive[1] = '*'
+
+    push 1                      # automata[1] address
+    push 79                     # automata[1] value
+    adsw
+
+    push 1
+    push 80
+    adsw
+
+    push 1
+    push 81
+    adsw
+
+    push 1
+    push 82
+    adsw
+    
+    push 1
+    push 83
+    adsw
+
+    push 1
+    push 84
+    adsw
+
+    push 1
+    push 77
+    adsw
+
+    push 1
+    push 76
+    adsw
+
+    push 1
+    push 73
+    adsw
+
+    push 1
+    push 20
+    adsw
+    push 1
+    push 21
+    adsw
+    push 1
+    push 21
+    adsw
+    push 1
+    push 21
+    adsw
+
+                                
+    push 0                      # for (int i = 0; i < 10; i++)
+label For_i
+    push 1000
+    cmp                         # i < 10
+    pop
+    je For_i_End                # if i == 10 end cycle
+
+
+
+    push 0                      # for (int j = 0; j < 10; j++)
+label For_j_1
+    push 200
+    cmp                         # j < 10
+    pop
+    je For_j_1_End              # if j == 10 end cycle
+
+    dup
+    push 200
+    add                         # temp[j] address
+    peek 2 
+    pop
+
+                                # DeadOrAlive arguments
+    push 200    
+    push 1
+    ptrfr -2
+    call Module                 
+    preg 1                      # r argument
+    adsr
+
+    push 200
+    push 0
+    ptrfr -3
+    call Module                 
+    preg 1                      # q argument
+    adsr
+
+    push 200
+    push -1
+    ptrfr -4
+    call Module
+    preg 1                      # p argument
+    adsr
+
+    call DeadOrAlive
+    preg 1
+
+    preg 2
+    adsw
+
+    ptrfr 0
+    push 1
+    add 
+    ptrfw -1                    # int j = j + 1
+    pop
+    jmp For_j_1
+
+label For_j_1_End               # End of for (int j = 0; j < 10; j++)
+    pop
+
+
+    push 0
+label For_j_2
+    push 200
+    cmp 
+    pop
+    je For_j_2_End
+
+    dup 
+    push 0
+    add 
+    adsr
+
+    push 400
+    add 
+    adsr
+    int 1
+    pop
+
+    dup 
+    push 200
+    add
+    adsr 
+
+    ptrfr -1
+    push 0
+    add 
+    adsw
+
+    ptrfr 0
+    push 1
+    add 
+    ptrfw -1                    # int j = j + 1
+    pop
+    jmp For_j_2
+
+label For_j_2_End
+    pop
+
+    push 10
+    int 1
+    pop
+
+    ptrfr 0
+    push 1
+    add 
+    ptrfw -1                    # int i = i + 1
+    pop
+    jmp For_i
+
+label For_i_End                 # End of for (int i = 0; i < 10; i++)
+    pop
+    ret
+
+
+label Module
+    ptrfr 0
+    ptrfr -2
+    ptrfr -4
+    add
+    add
+    ptrfr -3
+    mod
+
+    peek 1
+
+    vpop 4
+    ret
+
+label DeadOrAlive               # (q + r + qr + pqr) mod 2  
+    ptrfr -1
+    ptrfr -3
+    add
+    ptrfr -2
+    ptrfr -4
+    mul
+    add
+    ptrfr -1
+    ptrfr -3
+    ptrfr -5
+    mul
+    mul
+    add
+    push 2
+    mod
+
+    peek 1
+
+    vpop 4
+    ret
