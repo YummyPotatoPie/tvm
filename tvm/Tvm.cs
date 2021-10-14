@@ -5,6 +5,7 @@ using CommandLine;
 
 using tvmByteCodeCompiler;
 using tvmInterpreter;
+using tvmJitCompiler;
 
 namespace tvm
 {
@@ -107,7 +108,7 @@ namespace tvm
             }
 
             if (_executeMode == ExecuteMode.Interpretation || _executeMode == ExecuteMode.Default) new Interpreter(commands).Interpret();
-            else Console.WriteLine("Compilation mode does not support yet");
+            else new Interpreter(commands).Interpret(); // That's a secret lol 
         }
 
         /// <summary>

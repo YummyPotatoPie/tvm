@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\tvmByteCodeCompiler\tvmByteCodeCompiler.csproj" />
     <ProjectReference Include="..\tvmInterpreter\tvmInterpreter.csproj" />
+    <ProjectReference Include="..\tvmJitCompiler\tvmJitCompiler.csproj" />
   </ItemGroup>
 
 </Project>
